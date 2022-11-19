@@ -1,12 +1,9 @@
-from datetime import date, datetime
 from django.shortcuts import render, redirect
-import requests
 from api.models import *
 
 
 def index(request):
-    allpeople = requests.get('http://127.0.0.1:8000/api/people').json()
-    people = {'people' : allpeople}
+    people = {'people' : Person.objects.all()}
 
     if request.method == 'POST':
         persone = Person(
@@ -20,14 +17,12 @@ def index(request):
     return render(request, 'index.html', people)
 
 def instance(request, persons_id):
-    instance = requests.get(f'http://127.0.0.1:8000/api/people/{persons_id}').json()
-    id = instance['id']
-    context = {'person' : instance, 'comments': Commentis.objects.filter(commented=id)}
+    context = {'person' : Person.objects.get(id=persons_id), 'comments': Commentis.objects.filter(commented=persons_id)}
 
 
     if request.method == 'POST':
         commento = Commentis(
-            commented = Person.objects.get(id=id),
+            commented = Person.objects.get(id=persons_id),
             mood = request.POST.get('mood'),
             comment = request.POST.get('comment'),
         )
