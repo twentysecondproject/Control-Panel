@@ -1,41 +1,181 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <title>{{person.name}} {{person.surname}} - Control Panel</title>
-        <link rel="icon" type="image/x-icon" href="https://discord.com/channels/@me/1013059351453368320/1042462708274053220">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    </head>
-    <body style="background: black; font-family: 'Poppins', sans-serif;">
-    <a class="bi bi-arrow-90deg-left" style="color: white; position: absolute; top: 0px; left: 0px; margin: 20px" href="http://127.0.0.1:8000"></a>
-    <div style='text-align: center; color: white; margin-top: 35px'>
-        <h1>{{person.name}} {{person.surname}}</h1>
-        {% if person.friend == True %}
-        <h6>Yep, un amico.</h6>
-        {% else %}
-        <h6>Stagli lontano</h6>
-        {% endif %}
-    </div>
-    <form action="http://127.0.0.1:8000/persona/{{person.id}}" method="POST">
-      {% csrf_token %}
-    <div class="mb-3" style="margin-left:500px; margin-right:500px; margin-top: 50px">
-        <label for="exampleFormControlTextarea1" class="form-label" style="color: white">Aggiungi commento su {{person.name}} {{person.surname}}:</label>
-        <input class="form-control" type="text" placeholder="Mood" aria-label="default input example" name="mood">
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment" style="margin-top: 9px"></textarea>
-        <input type="submit" value="Submit" class="btn btn-primary" style="margin-top: 10px">
+
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>{{person.name}} {{person.surname}} - Control Panel</title>
+  <link rel="icon" type="image/x-icon" href="https://discord.com/channels/@me/1013059351453368320/1042462708274053220">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+</head>
+
+<body style="font-family: 'Poppins', sans-serif; background-color: #e5e5e5;">
+  <div class="header">
+    <a href="/" style="text-decoration: none;">
+      <h6 style="text-align: center; color: white;">Torna indietro</h6>
+    </a>
+    <h1 style="color: white; font-size: 65px; margin-top: 150px; margin-bottom: 20px;">{{person.name}}
+      {{person.surname}}</h1>
+    {% if person.friend == True %}
+    <span class="badge green">Yep, un amico</span>
+    {% else %}
+    <span class="badge red">Stagli lontano</span>
+    {% endif %}
+  </div>
+  <div class="body" style="margin: 50px">
+    <h1 style="text-align: center;">Overview generale</h1>
+
+    <div class="row">
+      <div class="button-modal">
+        <button class="button-86" type="button" data-bs-toggle="modal" data-bs-target="#commento">Commento</button>
+
+
       </div>
-    </form>
-
-    <h1 style="color: white; margin-left: 500px; margin-top: 150px; margin-bottom: 50px">Commenti:</h1>
-
-    {% for a in comments %}
-    <div style="margin-left: 500px; margin-right: 500px; margin-top: 15px; color: white">
-    <h5>{{a.mood}} ({{a.date}})</h5>
-    <p>{{a.comment}}</p>
+      <div class="already-comments" style="margin-top: 50px; text-align: center;">
+        <h3>Commenti</h3>
+        <div class="commenti" style="margin-top: 30px;">
+          {% for comment in comments %}
+          <div class="commento" style="margin-top: 20px;">
+            <h5>{{comment.mood}} ({{comment.date}})</h5>
+            <p>{{comment.comment}}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
     </div>
-    {% endfor %}
-    </body>
+  </div>
+
+  <div class="modal fade" id="commento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Conosciuto qualcuno?</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="http://127.0.0.1:8000/persona/{{person.id}}" method="POST">
+          {% csrf_token %}
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="mood" class="form-label">Mood</label>
+              <input class="form-control" name="mood">
+            </div>
+            <div class="mb-3">
+              <label for="commento" class="form-label">Commento</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment" style="margin-top: 9px"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+</body>
+<style>
+  .header {
+    min-height: 400px;
+    padding: 60px 130px;
+    background-color: #334d6e;
+  }
+
+  .badge {
+    color: #fff !important;
+    border: 2px solid transparent;
+    border-radius: 4px !important;
+    padding: 5px 13px !important;
+    font-size: 13px !important;
+    min-width: 120px;
+  }
+
+  .green {
+    background-color: rgba(0, 255, 102);
+    box-shadow: 0 4px 10px rgba(0, 255, 64, 0.549)
+  }
+
+  .red {
+    background-color: rgb(255, 0, 0);
+    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.549)
+  }
+
+  .button-86 {
+    all: unset;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    width: 100px;
+    height: 30px;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    position: relative;
+    color: #f0f0f0;
+    cursor: pointer;
+    z-index: 1;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+  .button-86::after,
+  .button-86::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -99999;
+    transition: all .4s;
+  }
+
+  .button-86::before {
+    transform: translate(0%, 0%);
+    width: 100%;
+    height: 100%;
+    background: #2596be;
+    ;
+    border-radius: 10px;
+  }
+
+  .button-86::after {
+    transform: translate(10px, 10px);
+    width: 35px;
+    height: 35px;
+    background: #ffffff15;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 50px;
+  }
+
+  .button-86:hover::before {
+    transform: translate(5%, 20%);
+    width: 110%;
+    height: 110%;
+  }
+
+  .button-86:hover::after {
+    border-radius: 10px;
+    transform: translate(0, 0);
+    width: 100%;
+    height: 100%;
+  }
+
+  .button-86:active::after {
+    transition: 0s;
+    transform: translate(0, 5%);
+  }
+</style>
+
 </html>

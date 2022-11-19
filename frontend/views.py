@@ -28,7 +28,7 @@ def instance(request, persons_id):
         )
 
         commento.save()
-        return redirect(f'/persona/{id}')
+        return redirect(f'/persona/{persons_id}')
 
  
 
