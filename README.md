@@ -11,3 +11,5 @@ TODO List:
 
 
 Feel free to make a pull request and to edit the TODO list if you want any other function. The repository is NOT meant for production, I always use it in localhost and always will.
+
+Ps. I'm aware it is not responsive, it is only meant for my PC so if you want to create a control panel for yourself you also need to know a bit of frontending.
