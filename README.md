@@ -5,7 +5,7 @@ TODO List:
 
 - Add editing people function (only friend checkmark with also JS that enables/disables the button if the checkmark is checked or not)
 - Better Frontend
-- Destory API and make direct requests to database
+- Destory API and make direct requests to database - Done
 - Add SSO
 - Add "export data" function
 
