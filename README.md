@@ -9,6 +9,7 @@ TODO List:
 - Add SSO
 - Add "export data" function
 - Add Favicon
+- Change font to Cera Pro (cooler)
 
 
 Feel free to make a pull request and to edit the TODO list if you want any other function. The repository is NOT meant for production, I always use it in localhost and always will.
