@@ -8,6 +8,7 @@ TODO List:
 - Destory API and make direct requests to database - Done
 - Add SSO
 - Add "export data" function
+- Add Favicon
 
 
 Feel free to make a pull request and to edit the TODO list if you want any other function. The repository is NOT meant for production, I always use it in localhost and always will.
