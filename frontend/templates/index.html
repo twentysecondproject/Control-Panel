@@ -1,3 +1,4 @@
+{% load static %}
 <html lang="en">
 
 <head>
@@ -62,7 +63,10 @@
         <img class="card-img-top" src="https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png"
           alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title" style="text-align: center;">{{person.name}} {{person.surname}}</h5>
+          <div class="title" style="align-items: center;">
+            <h5 class="card-title" style="text-align: center;">{{person.name}} {{person.surname}}</h5>
+            <a href="/delete/{{person.id}}"><i class="bi bi-x-circle-fill" style="position: absolute; top: 0; right: 0; margin: 5px; color: #2596be;"></i></a>
+          </div>
           <div class="amico-section" style="text-align: center; margin-top: 35px">
             <p class="card-text">Amico</p>
             {% if person.friend == False %}

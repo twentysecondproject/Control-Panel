@@ -33,3 +33,7 @@ def instance(request, persons_id):
  
 
     return render(request, 'single_person_view.html', context)
+
+def delete(request, persons_id):
+    Person.objects.get(id=persons_id).delete()
+    return redirect('/')
