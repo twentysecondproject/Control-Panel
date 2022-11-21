@@ -4,14 +4,16 @@ Django website in which you are able to add people, wether they are friends of y
 TODO List:
 
 - Add editing people function (only friend checkmark with also JS that enables/disables the button if the checkmark is checked or not)
-- Add deleting people function - Done
-- Better Frontend - Done
-- Destory API and make direct requests to database - Done
 - Add SSO
 - Add "export data" function
 - Add Favicon
 - Change font to Cera Pro (cooler)
 
+Implemented list:
+
+- Add deleting people function
+- Better Frontend
+- Destory API and make direct requests to database
 
 Feel free to make a pull request and to edit the TODO list if you want any other function. The repository is NOT meant for production, I always use it in localhost and always will.
 
